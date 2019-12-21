@@ -1,0 +1,30 @@
+2019-07-01
+==========
+    1. Ported to .NET Standard.
+
+2019-07-08
+==========
+    Version: 2.19.1
+    1. Updated major version.
+
+2019-09-17
+==========
+    Version: 2.19.2
+    1. Added command line support.
+    2. Fixed minor bugs.
+
+2019-10-20
+==========
+    Version: 3.0
+    1. Bumped version.
+
+2019-11-22
+==========
+    Version: 3.0.1
+    1. CLI moved to a separate repo.
+
+2019-12-03
+==========
+    Version: 3.0.3
+    1. Added support of 'index-of' and 'get-or-default' for read-only collections.
+    2. Added AddCharRange extension.
