@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>TauCode.Extensions</id>
+    <version>1.0.0.0-dev-2019-12-21-00-14</version>
+    <authors>TauCode</authors>
+    <owners>TauCode</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/taucode/taucode.extensions</projectUrl>
+    <description>TauCode extensions library</description>
+    <releaseNotes>
+      TODO: Moving to nuget.org
+    </releaseNotes>
+    <tags>taucode extensions</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\src\TauCode.Extensions\bin\Release\netstandard2.0\TauCode.Extensions.dll" target="lib\netstandard2.0" />
+    <file src="..\src\TauCode.Extensions\bin\Release\netstandard2.0\TauCode.Extensions.pdb" target="lib\netstandard2.0" />
+  </files>
+</package>
