@@ -18,9 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{905E37D2-5
 		misc\todo.txt = misc\todo.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Extensions", "src\TauCode.Extensions\TauCode.Extensions.csproj", "{96B48497-2B5F-44C6-B984-D5088E526CBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TauCode.Extensions", "src\TauCode.Extensions\TauCode.Extensions.csproj", "{96B48497-2B5F-44C6-B984-D5088E526CBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.Extensions.Tests", "tests\TauCode.Extensions.Tests\TauCode.Extensions.Tests.csproj", "{D525B96A-B6F5-43A0-8F7D-A58F9BF7ADE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TauCode.Extensions.Tests", "tests\TauCode.Extensions.Tests\TauCode.Extensions.Tests.csproj", "{D525B96A-B6F5-43A0-8F7D-A58F9BF7ADE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
