@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.Extensions</id>
-    <version>1.0.0.0-dev-2019-12-21-20-35</version>
+    <version>1.0.0.0-dev-2020-01-06-13-06</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/taucode/taucode.extensions</projectUrl>
     <description>TauCode extensions library</description>
     <releaseNotes>
-      TODO: Moving to nuget.org
+      Added some string-related functionality.
     </releaseNotes>
     <tags>taucode extensions</tags>
     <dependencies>
