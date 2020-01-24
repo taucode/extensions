@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\My.Binary.File.bin" />
+    <None Remove="Resources\My.Utf8.Text.File.txt" />
+    <None Remove="Resources\Some.Good.Text.File.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\My.Binary.File.bin" />
+    <EmbeddedResource Include="Resources\My.Utf8.Text.File.txt" />
+    <EmbeddedResource Include="Resources\Some.Good.Text.File.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\TauCode.Extensions\TauCode.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>
