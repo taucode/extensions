@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.Extensions</id>
-    <version>1.0.0.0-dev-2020-01-06-13-06</version>
+    <version>1.0.0.0-dev-2020-03-14-23-45</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/taucode/taucode.extensions</projectUrl>
     <description>TauCode extensions library</description>
     <releaseNotes>
-      Added some string-related functionality.
+      Migrating to Azure DevOps.
     </releaseNotes>
     <tags>taucode extensions</tags>
     <dependencies>
