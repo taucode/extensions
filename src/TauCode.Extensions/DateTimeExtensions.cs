@@ -56,6 +56,7 @@ namespace TauCode.Extensions
             var time = DateTimeOffset.Parse(timeString);
             if (time.Offset != TimeSpan.Zero)
             {
+// todo:wrong. zero day time - it is not so.
                 throw new ArgumentException($"'{timeString}' does not represent a UTC date with zero day time.", nameof(timeString));
             }
 
