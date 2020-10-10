@@ -6,30 +6,6 @@ namespace TauCode.Extensions
 {
     public static class CollectionExtensions
     {
-        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
-        {
-            if (dictionary == null)
-            {
-                throw new ArgumentNullException(nameof(dictionary));
-            }
-
-            return dictionary.TryGetValue(key, out var value) ?
-                value :
-                default;
-        }
-
-        public static TValue GetOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
-        {
-            if (dictionary == null)
-            {
-                throw new ArgumentNullException(nameof(dictionary));
-            }
-
-            return dictionary.TryGetValue(key, out var value) ?
-                value :
-                default;
-        }
-
         #region Find Index for IList<T>
 
         public static int FindFirstIndexOf<T>(this IList<T> list, Func<T, bool> predicate)

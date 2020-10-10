@@ -24,8 +24,8 @@ namespace TauCode.Extensions
 
         public static string CreateTempFilePath(string namePrefix = null, string extension = null)
         {
-            namePrefix = namePrefix ?? "ztemp-";
-            extension = extension ?? ".dat";
+            namePrefix ??= "ztemp-";
+            extension ??= ".dat";
 
             if (!extension.StartsWith("."))
             {

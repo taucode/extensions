@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace TauCode.Extensions
@@ -172,6 +171,7 @@ namespace TauCode.Extensions
             }
         }
 
+        // todo char extensions
         public static bool IsLatinLetter(this char c)
         {
             return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
@@ -195,27 +195,6 @@ namespace TauCode.Extensions
             }
 
             return s != string.Empty && s[0].IsLatinLetter();
-        }
-
-        public static string Repeat(this string s, int count)
-        {
-            if (s == null)
-            {
-                throw new ArgumentNullException(nameof(s));
-            }
-
-            if (count < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(count));
-            }
-
-            var sb = new StringBuilder();
-            for (var i = 0; i < count; i++)
-            {
-                sb.Append(s);
-            }
-
-            return sb.ToString();
         }
     }
 }
