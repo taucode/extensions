@@ -89,7 +89,7 @@ namespace TauCode.Extensions
             return time;
         }
 
-        public static DateTimeOffset? ToNullableUtcDayOffsetLab(this string timeString) =>
+        public static DateTimeOffset? ToNullableUtcDateOffset(this string timeString) =>
             timeString?.ToUtcDateOffset();
 
         public static string[] GetLines(this string text)
