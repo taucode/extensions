@@ -8,21 +8,20 @@ namespace TauCode.Extensions
     {
         public static string ToXmlString(this XmlDocument document)
         {
-            using (MemoryStream stream = new MemoryStream())
-            using (XmlTextWriter writer = new XmlTextWriter(stream, Encoding.UTF8))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                writer.Formatting = Formatting.Indented;
-                document.WriteContentTo(writer);
+            using var stream = new MemoryStream();
+            using var writer = new XmlTextWriter(stream, Encoding.UTF8);
+            using var reader = new StreamReader(stream);
 
-                writer.Flush();
-                stream.Flush();
+            writer.Formatting = Formatting.Indented;
+            document.WriteContentTo(writer);
 
-                stream.Position = 0;
-                var xmlString = reader.ReadToEnd();
+            writer.Flush();
+            stream.Flush();
 
-                return xmlString;
-            }
+            stream.Position = 0;
+            var xmlString = reader.ReadToEnd();
+
+            return xmlString;
         }
     }
 }

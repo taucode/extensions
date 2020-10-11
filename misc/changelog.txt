@@ -1,3 +1,7 @@
 2019-12-21
 ==========
     1. Took advantage of https://nuget.org; renamed to TauCode.Extensions.
+
+2020-10-10
+==========
+    1. Took advantage of Azure DevOps. Refactoring.

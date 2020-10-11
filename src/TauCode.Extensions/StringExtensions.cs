@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace TauCode.Extensions
@@ -69,6 +68,30 @@ namespace TauCode.Extensions
             return Guid.Parse(s);
         }
 
+        // todo ut this
+        public static DateTimeOffset ToUtcDateOffset(this string timeString)
+        {
+            if (timeString == null)
+            {
+                throw new ArgumentNullException(nameof(timeString));
+            }
+
+            var time = DateTimeOffset.Parse(timeString);
+            var valid = time.IsUtcDateOffset();
+
+            if (!valid)
+            {
+                throw new ArgumentException(
+                    $"'{timeString}' does not represent a UTC date with zero day time.",
+                    nameof(timeString));
+            }
+
+            return time;
+        }
+
+        public static DateTimeOffset? ToNullableUtcDayOffsetLab(this string timeString) =>
+            timeString?.ToUtcDateOffset();
+
         public static string[] GetLines(this string text)
         {
             return text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
@@ -76,7 +99,7 @@ namespace TauCode.Extensions
 
         public static string CutEmptyLines(this string text)
         {
-            var cuttedLines = text
+            var cutLines = text
                 .GetLines()
                 .Select(x =>
                 {
@@ -89,9 +112,9 @@ namespace TauCode.Extensions
                 })
                 .ToArray();
 
-            var cuttedText = string.Join(Environment.NewLine, cuttedLines);
+            var cutText = string.Join(Environment.NewLine, cutLines);
 
-            return cuttedText;
+            return cutText;
         }
 
         public static bool StartsWithEmptyChar(this string s)
@@ -124,7 +147,7 @@ namespace TauCode.Extensions
             }
             else
             {
-                return char.IsWhiteSpace(s[s.Length - 1]);
+                return char.IsWhiteSpace(s[^1]);
             }
         }
 
@@ -172,11 +195,6 @@ namespace TauCode.Extensions
             }
         }
 
-        public static bool IsLatinLetter(this char c)
-        {
-            return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-        }
-
         public static bool StartsWithDigit(this string s)
         {
             if (s == null)
@@ -195,27 +213,6 @@ namespace TauCode.Extensions
             }
 
             return s != string.Empty && s[0].IsLatinLetter();
-        }
-
-        public static string Repeat(this string s, int count)
-        {
-            if (s == null)
-            {
-                throw new ArgumentNullException(nameof(s));
-            }
-
-            if (count < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(count));
-            }
-
-            var sb = new StringBuilder();
-            for (var i = 0; i < count; i++)
-            {
-                sb.Append(s);
-            }
-
-            return sb.ToString();
         }
     }
 }
