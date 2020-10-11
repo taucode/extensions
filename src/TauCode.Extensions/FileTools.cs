@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TauCode.Extensions
 {
-    public static class FileExtensions
+    public static class FileTools
     {
         public static void ClearDirectory(this DirectoryInfo directory)
         {

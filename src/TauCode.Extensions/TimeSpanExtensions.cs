@@ -78,6 +78,5 @@ namespace TauCode.Extensions
 
             return v;
         }
-
     }
 }

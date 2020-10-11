@@ -4,52 +4,19 @@ namespace TauCode.Extensions
 {
     public static class DateTimeExtensions
     {
-        public static bool IsExactDate(this DateTime dateTime)
+        public static bool IsDate(this DateTime date)
         {
-            return dateTime.Date == dateTime;
+            return date.TimeOfDay == TimeSpan.Zero;
         }
 
-        public static string ToExactDateString(this DateTime dateTime)
+        public static string ToDateString(this DateTime date)
         {
-            if (!dateTime.IsExactDate())
+            if (!date.IsDate())
             {
-                throw new ArgumentException("Not exact date", nameof(dateTime));
+                throw new ArgumentException($"Not an exact date: '{date}'.", nameof(date));
             }
 
-            return dateTime.ToString("yyyy-MM-dd");
+            return date.ToString("yyyy-MM-dd");
         }
-
-        public static DateTimeOffset ToUtcDayOffset(this string timeString)
-        {
-            var time = DateTimeOffset.Parse(timeString);
-            if (time.Offset != TimeSpan.Zero)
-            {
-// todo:wrong. zero day time - it is not so.
-                throw new ArgumentException($"'{timeString}' does not represent a UTC date with zero day time.", nameof(timeString));
-            }
-
-            return time;
-        }
-
-        public static DateTimeOffset Min(DateTimeOffset v1, DateTimeOffset v2)
-        {
-            if (v1 < v2)
-            {
-                return v1;
-            }
-
-            return v2;
-        }
-
-        public static DateTimeOffset Max(DateTimeOffset v1, DateTimeOffset v2)
-        {
-            if (v1 > v2)
-            {
-                return v1;
-            }
-
-            return v2;
-        }
-
     }
 }
