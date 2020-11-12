@@ -8,7 +8,8 @@ namespace TauCode.Extensions
         {
             if (start > end)
             {
-                throw new ArgumentException($"'{nameof(end)}' must be not earlier than '{nameof(start)}'.", nameof(end));
+                throw new ArgumentException($"'{nameof(end)}' must be not earlier than '{nameof(start)}'.",
+                    nameof(end));
             }
 
             this.Start = start;
@@ -28,7 +29,9 @@ namespace TauCode.Extensions
             var parts = intervalString.Split(' ');
             if (parts.Length != 2)
             {
-                throw new ArgumentException($"'{nameof(intervalString)}' must be in format '<start> <end>.'");
+                throw new ArgumentException(
+                    $"'{nameof(intervalString)}' must be in format '<start> <end>.'",
+                    nameof(intervalString));
             }
 
             var startString = parts[0];

@@ -130,6 +130,21 @@ namespace TauCode.Extensions
 
         #endregion
 
+        public static TValue GetDictionaryValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        {
+            if (dictionary == null)
+            {
+                throw new ArgumentNullException(nameof(dictionary));
+            }
+
+            if (dictionary is Dictionary<TKey, TValue> dictionaryImplementation)
+            {
+                return dictionaryImplementation.GetValueOrDefault(key);
+            }
+
+            throw new ArgumentException($"'{nameof(dictionary)}' is not a 'Dictionary<TKey, TValue>'.", nameof(dictionary));
+        }
+
         public static void AddCharRange(this List<char> list, char from, char to)
         {
             if (list == null)
