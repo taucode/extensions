@@ -31,54 +31,6 @@ namespace TauCode.Extensions.Tests
             };
         }
 
-        [Test]
-        public void GetOrDefault_IDictionary_ValidInput_ReturnsExpectedResult()
-        {
-            // Arrange
-            IDictionary<string, int> dict = _dictionary;
-
-            // Act
-            var existing = dict.GetOrDefault("one");
-            var nonExisting = dict.GetOrDefault("ten");
-
-            // Assert
-            Assert.That(existing, Is.EqualTo(1));
-            Assert.That(nonExisting, Is.EqualTo(default(int)));
-        }
-
-        [Test]
-        public void GetOrDefault_IReadOnlyDictionary_ValidInput_ReturnsExpectedResult()
-        {
-            // Arrange
-            IReadOnlyDictionary<string, int> dict = _dictionary;
-
-            // Act
-            var existing = dict.GetOrDefault("one");
-            var nonExisting = dict.GetOrDefault("ten");
-
-            // Assert
-            Assert.That(existing, Is.EqualTo(1));
-            Assert.That(nonExisting, Is.EqualTo(default(int)));
-        }
-
-        [Test]
-        public void GetOrDefault_Dictionary_ValidInput_ReturnsExpectedResult()
-        {
-            // Arrange
-            Dictionary<string, int> dict = _dictionary;
-
-            IDictionary<string, int> dictAsIDictionary = dict;
-            IReadOnlyDictionary<string, int> dictAsReadOnlyDictionary = dict;
-
-            // Act
-            var existing = dictAsIDictionary.GetOrDefault("one");
-            var nonExisting = dictAsReadOnlyDictionary.GetOrDefault("ten");
-
-            // Assert
-            Assert.That(existing, Is.EqualTo(1));
-            Assert.That(nonExisting, Is.EqualTo(default(int)));
-        }
-
         #region Find Index for IList<T>
 
         [Test]

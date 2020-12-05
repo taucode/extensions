@@ -160,7 +160,7 @@ namespace TauCode.Extensions
             string resourceName,
             bool findFullName = false)
         {
-            var tempFilePath = FileExtensions.CreateTempFilePath();
+            var tempFilePath = FileTools.CreateTempFilePath();
             var content = assembly.GetResourceBytes(resourceName, findFullName);
             File.WriteAllBytes(tempFilePath, content);
             return tempFilePath;
