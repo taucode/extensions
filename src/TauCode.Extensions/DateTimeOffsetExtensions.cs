@@ -35,5 +35,19 @@ namespace TauCode.Extensions
 
             return date.ToString("yyyy-MM-ddZ");
         }
+
+        public static DateTimeOffset CutDateOffset(this DateTimeOffset dateTimeOffset)
+        {
+            dateTimeOffset = dateTimeOffset.ToUniversalTime();
+
+            return new DateTimeOffset(
+                dateTimeOffset.Year,
+                dateTimeOffset.Month,
+                dateTimeOffset.Day,
+                0,
+                0,
+                0,
+                TimeSpan.Zero);
+        }
     }
 }
