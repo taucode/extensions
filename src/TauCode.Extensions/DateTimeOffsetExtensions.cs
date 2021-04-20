@@ -24,7 +24,9 @@ namespace TauCode.Extensions
             return v2;
         }
 
-        public static bool IsUtcDateOffset(this DateTimeOffset date) => date.UtcDateTime.TimeOfDay == TimeSpan.Zero;
+        public static bool IsUtcDateOffset(this DateTimeOffset date) =>
+            date.UtcDateTime.TimeOfDay == TimeSpan.Zero &&
+            date.Offset == TimeSpan.Zero;
 
         public static string ToUtcDateOffsetString(this DateTimeOffset date)
         {
