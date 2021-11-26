@@ -22,8 +22,14 @@ steps:
     command: 'restore'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build solution and pack NuGet package'
+  displayName: 'Build and pack'
   inputs:
     command: 'pack'
     arguments: src/$(ProjectName)/$(ProjectName).csproj -c Release
+
+- task: DotNetCoreCLI@2
+  displayName: 'Push package'
+  inputs:
+    command: 'push'
+    arguments: $(Build.ArtifactStagingDirectory)\$(packageName) --api-key az_dummy --source TauCode
 
