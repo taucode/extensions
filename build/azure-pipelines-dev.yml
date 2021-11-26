@@ -38,4 +38,4 @@ steps:
   inputs:
     command: custom
     custom: nuget
-    arguments: 'push $(Build.ArtifactStagingDirectory)\$(packageName) -s https://pkgs.dev.azure.com/taucode/_packaging/taucode/nuget/v3/index.json --skip-duplicate'
+    arguments: 'push $(Build.ArtifactStagingDirectory)\$(packageName) -s taucode -k dummy_az --skip-duplicate'
