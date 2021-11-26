@@ -31,5 +31,6 @@ steps:
   displayName: 'Push package'
   inputs:
     command: 'push'
-    arguments: $(Build.ArtifactStagingDirectory)\$(packageName) --api-key az_dummy --source TauCode
+    arguments: --source "taucode" --api-key az $(Build.ArtifactStagingDirectory)\$(packageName)
+
 
