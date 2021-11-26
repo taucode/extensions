@@ -2,6 +2,7 @@
 
 namespace TauCode.Extensions
 {
+// todo move to taucode.data
     public readonly struct DateTimeOffsetInterval
     {
         public DateTimeOffsetInterval(DateTimeOffset start, DateTimeOffset end)
