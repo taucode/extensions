@@ -32,6 +32,7 @@ namespace TauCode.Extensions
             return -1;
         }
 
+// todo: start index, here & anywhere.
         public static int FindFirstIndexOf<T>(this IList<T> list, T value)
         {
             return list.FindFirstIndexOf(x => Equals(x, value));

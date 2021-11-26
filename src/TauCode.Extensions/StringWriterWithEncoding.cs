@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 
+// todo move to taucode.io
 namespace TauCode.Extensions
 {
     public sealed class StringWriterWithEncoding : StringWriter

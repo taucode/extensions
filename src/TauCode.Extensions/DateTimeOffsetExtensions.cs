@@ -24,7 +24,9 @@ namespace TauCode.Extensions
             return v2;
         }
 
-        public static bool IsUtcDateOffset(this DateTimeOffset date) => date.UtcDateTime.TimeOfDay == TimeSpan.Zero;
+        public static bool IsUtcDateOffset(this DateTimeOffset date) =>
+            date.UtcDateTime.TimeOfDay == TimeSpan.Zero &&
+            date.Offset == TimeSpan.Zero;
 
         public static string ToUtcDateOffsetString(this DateTimeOffset date)
         {
@@ -34,6 +36,20 @@ namespace TauCode.Extensions
             }
 
             return date.ToString("yyyy-MM-ddZ");
+        }
+
+        public static DateTimeOffset CutDateOffset(this DateTimeOffset dateTimeOffset)
+        {
+            dateTimeOffset = dateTimeOffset.ToUniversalTime();
+
+            return new DateTimeOffset(
+                dateTimeOffset.Year,
+                dateTimeOffset.Month,
+                dateTimeOffset.Day,
+                0,
+                0,
+                0,
+                TimeSpan.Zero);
         }
     }
 }
