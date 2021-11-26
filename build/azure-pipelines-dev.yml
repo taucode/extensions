@@ -13,49 +13,17 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  packageName: '_set_by_task_'
-  nuspecName: '_set_by_task_'
 
 steps:
-- task: NuGetToolInstaller@1
 
 - task: DotNetCoreCLI@2
-  name: 'restore_nuget_packages'
+  displayName: 'Restore NuGet packages'
   inputs:
     command: 'restore'
 
 - task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    arguments: -c Release
-
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      $a = cmd /r dir /b nuget\*.nuspec
-      $echo_string = "##vso[task.setvariable variable=nuspecName]$a"
-      echo $echo_string
-      Write-Host "nuspecName is:"
-      Write-Host $(nuspecName)
-
-- task: NuGetCommand@2
+  displayName: 'Build solution and pack NuGet package'
   inputs:
     command: 'pack'
-    packagesToPack: 'nuget\$(nuspecName)'
-    versioningScheme: 'off'
+    arguments: src/$(ProjectName)/$(ProjectName).csproj -c Release
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      $a = cmd /r dir /b $(Build.ArtifactStagingDirectory)\*.nupkg
-      $echo_string = "##vso[task.setvariable variable=packageName]$a"
-      echo $echo_string
-      Write-Host "packageName is:"
-      Write-Host $(packageName)
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'custom'
-    arguments: 'push $(Build.ArtifactStagingDirectory)\$(packageName) -ApiKey az_dummy -Source "TauCode"'
