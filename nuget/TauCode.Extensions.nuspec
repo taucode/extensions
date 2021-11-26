@@ -2,17 +2,18 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.Extensions</id>
-    <version>1.3.2.7-dev-2021-04-20-18-55</version>
+    <version>1.3.6.2-alpha.1.2021-11-26.15-21</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="file">LICENSE.txt</license>
     <projectUrl>https://github.com/taucode/taucode.extensions</projectUrl>
+    <repository type="git" url="https://github.com/taucode/taucode.extensions"/>
     <description>
       TauCode extensions library
     </description>
     <releaseNotes>
-      Fixed DateTimeOffsetExtensions.IsUtcDateOffset
+      Added DateTimeOffset extensions
     </releaseNotes>
     <tags>
       taucode extensions
@@ -24,6 +25,7 @@
   </metadata>
   <files>
     <file src="..\LICENSE.txt" target="" />
+    <file src="..\README.md" target="" />
     <file src="..\src\TauCode.Extensions\bin\Release\netstandard2.1\TauCode.Extensions.dll" target="lib\netstandard2.1" />
     <file src="..\src\TauCode.Extensions\bin\Release\netstandard2.1\TauCode.Extensions.pdb" target="lib\netstandard2.1" />
   </files>

@@ -5,6 +5,8 @@ namespace TauCode.Extensions
 {
     public static class FileTools
     {
+// todo: rename to Purge
+// todo: move to TauCode.Utility
         public static void ClearDirectory(this DirectoryInfo directory)
         {
             if (directory == null)
