@@ -2,28 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-
-    <Version>1.3.6.4-alpha.1.2021-11-26.17-09</Version>
-    <Authors>TauCode</Authors>
-    <Company>TauCode</Company>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Description>TauCode extensions library</Description>
-    <PackageProjectUrl>https://github.com/taucode/taucode.extensions</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/taucode/taucode.extensions</RepositoryUrl>
-    <PackageTags>taucode;extensions</PackageTags>
-    <PackageReleaseNotes>Added DateTimeOffset extensions</PackageReleaseNotes>    
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\..\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
+  
 </Project>
