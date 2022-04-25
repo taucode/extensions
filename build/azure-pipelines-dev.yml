@@ -7,12 +7,12 @@ trigger:
 - dev
 
 pool:
-  vmImage: 'windows-2022'
+  vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'Debug'
   packageName: '_set_by_task_'
   nuspecName: '_set_by_task_'
 
