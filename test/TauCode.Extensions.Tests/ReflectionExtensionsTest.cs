@@ -268,25 +268,5 @@ namespace TauCode.Extensions.Tests
         }
 
         #endregion
-
-        #region SaveResourceToTempFile
-
-        [Test]
-        public void SaveResourceToTempFile_ValidArguments_SavesToTempFile()
-        {
-            // Arrange
-
-            // Act
-            var tempFilePath = this.GetType().Assembly.SaveResourceToTempFile("My.Utf8.Text.File.txt", true);
-
-            // Assert
-            var text = File.ReadAllText(tempFilePath);
-            Assert.That(text, Is.EqualTo(
-@"Сделал три подхода
-Четвёртый за Гарри
-Гарри щас в походе вернётся едва ли /*2"));
-        }
-
-        #endregion
     }
 }

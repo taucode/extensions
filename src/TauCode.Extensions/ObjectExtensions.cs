@@ -23,6 +23,16 @@ namespace TauCode.Extensions
                 throw new ArgumentNullException(nameof(instance));
             }
 
+            if (from == null)
+            {
+                throw new ArgumentNullException(nameof(from));
+            }
+
+            if (to == null)
+            {
+                throw new ArgumentNullException(nameof(to));
+            }
+
             var isBetween =
                 (instance.CompareTo(from) > 0 || (instance.CompareTo(from) == 0 && inclusive)) &&
                 (instance.CompareTo(to) < 0 || (instance.CompareTo(to) == 0 && inclusive));

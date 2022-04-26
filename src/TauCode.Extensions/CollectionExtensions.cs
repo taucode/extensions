@@ -6,21 +6,24 @@ namespace TauCode.Extensions
 {
     public static class CollectionExtensions
     {
-        #region Find Index for IList<T>
+        #region Find First Index
 
-        public static int FindFirstIndexOf<T>(this IList<T> list, Func<T, bool> predicate)
+        private static int FindFirstIndexInList<T>(
+            this IList<T> list,
+            Func<T, bool> predicate,
+            int startPosition = 0)
         {
-            if (list == null)
-            {
-                throw new ArgumentNullException(nameof(list));
-            }
-
             if (predicate == null)
             {
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            for (var i = 0; i < list.Count; i++)
+            if (startPosition < 0 || startPosition > list.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startPosition));
+            }
+
+            for (var i = startPosition; i < list.Count; i++)
             {
                 var item = list[i];
                 if (predicate(item))
@@ -32,25 +35,22 @@ namespace TauCode.Extensions
             return -1;
         }
 
-// todo: start index, here & anywhere.
-        public static int FindFirstIndexOf<T>(this IList<T> list, T value)
+        private static int FindFirstIndexInReadOnlyList<T>(
+            this IReadOnlyList<T> list,
+            Func<T, bool> predicate,
+            int startPosition = 0)
         {
-            return list.FindFirstIndexOf(x => Equals(x, value));
-        }
-
-        public static int FindLastIndexOf<T>(this IList<T> list, Func<T, bool> predicate)
-        {
-            if (list == null)
-            {
-                throw new ArgumentNullException(nameof(list));
-            }
-
             if (predicate == null)
             {
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            for (var i = list.Count - 1; i >= 0; i--)
+            if (startPosition < 0 || startPosition > list.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startPosition));
+            }
+
+            for (var i = startPosition; i < list.Count; i++)
             {
                 var item = list[i];
                 if (predicate(item))
@@ -62,28 +62,49 @@ namespace TauCode.Extensions
             return -1;
         }
 
-        public static int FindLastIndexOf<T>(this IList<T> list, T value)
+        public static int FindFirstIndex<T>(this IEnumerable<T> collection, Func<T, bool> predicate, int startPosition = 0)
         {
-            return list.FindLastIndexOf(x => Equals(x, value));
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            if (collection is IList<T> list)
+            {
+                return FindFirstIndexInList(list, predicate, startPosition);
+            }
+
+            if (collection is IReadOnlyList<T> readOnlyList)
+            {
+                return FindFirstIndexInReadOnlyList(readOnlyList, predicate, startPosition);
+            }
+
+            throw new ArgumentException($"'{nameof(collection)}' must be either IList<T> or IReadOnlyList<T>.");
         }
+
+        public static int FindFirstIndex<T>(this IEnumerable<T> collection, T value, int startPosition = 0) =>
+            collection.FindFirstIndex(x => Equals(x, value), startPosition);
 
         #endregion
 
-        #region Find Index for IReadOnlyList<T>
+        #region Find Last Index
 
-        public static int FindFirstIndexOf<T>(this IReadOnlyList<T> list, Func<T, bool> predicate)
+        private static int FindLastIndexInList<T>(
+            this IList<T> list,
+            Func<T, bool> predicate,
+            int startPosition = 0)
         {
-            if (list == null)
-            {
-                throw new ArgumentNullException(nameof(list));
-            }
-
             if (predicate == null)
             {
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            for (var i = 0; i < list.Count; i++)
+            if (startPosition < 0 || startPosition > list.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startPosition));
+            }
+
+            for (var i = list.Count - 1; i >= startPosition; i--)
             {
                 var item = list[i];
                 if (predicate(item))
@@ -95,24 +116,22 @@ namespace TauCode.Extensions
             return -1;
         }
 
-        public static int FindFirstIndexOf<T>(this IReadOnlyList<T> list, T value)
+        private static int FindLastIndexInReadOnlyList<T>(
+            this IReadOnlyList<T> list,
+            Func<T, bool> predicate,
+            int startPosition = 0)
         {
-            return list.FindFirstIndexOf(x => Equals(x, value));
-        }
-
-        public static int FindLastIndexOf<T>(this IReadOnlyList<T> list, Func<T, bool> predicate)
-        {
-            if (list == null)
-            {
-                throw new ArgumentNullException(nameof(list));
-            }
-
             if (predicate == null)
             {
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            for (var i = list.Count - 1; i >= 0; i--)
+            if (startPosition < 0 || startPosition > list.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startPosition));
+            }
+
+            for (var i = list.Count - 1; i >= startPosition; i--)
             {
                 var item = list[i];
                 if (predicate(item))
@@ -124,14 +143,129 @@ namespace TauCode.Extensions
             return -1;
         }
 
-        public static int FindLastIndexOf<T>(this IReadOnlyList<T> list, T value)
+        public static int FindLastIndex<T>(this IEnumerable<T> collection, Func<T, bool> predicate, int startPosition = 0)
         {
-            return list.FindLastIndexOf(x => Equals(x, value));
+            if (collection == null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+
+            if (collection is IList<T> list)
+            {
+                return FindLastIndexInList(list, predicate, startPosition);
+            }
+
+            if (collection is IReadOnlyList<T> readOnlyList)
+            {
+                return FindLastIndexInReadOnlyList(readOnlyList, predicate, startPosition);
+            }
+
+            throw new ArgumentException($"'{nameof(collection)}' must be either IList<T> or IReadOnlyList<T>.");
         }
+
+        public static int FindLastIndex<T>(this IEnumerable<T> collection, T value, int startPosition = 0) =>
+            collection.FindLastIndex(x => Equals(x, value), startPosition);
 
         #endregion
 
-        public static TValue GetDictionaryValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+
+        // todo clean
+
+        //public static int FindLastIndexOf<T>(this IList<T> list, Func<T, bool> predicate)
+        //{
+        //    if (list == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(list));
+        //    }
+
+        //    if (predicate == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(predicate));
+        //    }
+
+        //    for (var i = list.Count - 1; i >= 0; i--)
+        //    {
+        //        var item = list[i];
+        //        if (predicate(item))
+        //        {
+        //            return i;
+        //        }
+        //    }
+
+        //    return -1;
+        //}
+
+        //public static int FindLastIndexOf<T>(this IList<T> list, T value)
+        //{
+        //    return list.FindLastIndexOf(x => Equals(x, value));
+        //}
+
+
+        // todo clean
+        //#region Find Index for IReadOnlyList<T>
+
+        //public static int FindFirstIndexOf<T>(this IReadOnlyList<T> list, Func<T, bool> predicate)
+        //{
+        //    if (list == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(list));
+        //    }
+
+        //    if (predicate == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(predicate));
+        //    }
+
+        //    for (var i = 0; i < list.Count; i++)
+        //    {
+        //        var item = list[i];
+        //        if (predicate(item))
+        //        {
+        //            return i;
+        //        }
+        //    }
+
+        //    return -1;
+        //}
+
+        //public static int FindFirstIndexOf<T>(this IReadOnlyList<T> list, T value)
+        //{
+        //    return list.FindFirstIndexOf(x => Equals(x, value));
+        //}
+
+        //public static int FindLastIndexOf<T>(this IReadOnlyList<T> list, Func<T, bool> predicate)
+        //{
+        //    if (list == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(list));
+        //    }
+
+        //    if (predicate == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(predicate));
+        //    }
+
+        //    for (var i = list.Count - 1; i >= 0; i--)
+        //    {
+        //        var item = list[i];
+        //        if (predicate(item))
+        //        {
+        //            return i;
+        //        }
+        //    }
+
+        //    return -1;
+        //}
+
+        //public static int FindLastIndexOf<T>(this IReadOnlyList<T> list, T value)
+        //{
+        //    return list.FindLastIndexOf(x => Equals(x, value));
+        //}
+
+        //#endregion
+
+        public static TValue GetDictionaryValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
+            TKey key)
         {
             if (dictionary == null)
             {
@@ -143,7 +277,8 @@ namespace TauCode.Extensions
                 return dictionaryImplementation.GetValueOrDefault(key);
             }
 
-            throw new ArgumentException($"'{nameof(dictionary)}' is not a 'Dictionary<TKey, TValue>'.", nameof(dictionary));
+            throw new ArgumentException($"'{nameof(dictionary)}' is not a 'Dictionary<TKey, TValue>'.",
+                nameof(dictionary));
         }
 
         public static void AddCharRange(this List<char> list, char from, char to)
@@ -155,10 +290,11 @@ namespace TauCode.Extensions
 
             if (from > to)
             {
-                throw new ArgumentOutOfRangeException(nameof(to), $"'{nameof(to)}' must be not less than '{nameof(from)}'.");
+                throw new ArgumentOutOfRangeException(nameof(to),
+                    $"'{nameof(to)}' must be not less than '{nameof(from)}'.");
             }
 
-            list.AddRange(Enumerable.Range(from, to - from + 1).Select(x => (char)x));
+            list.AddRange(Enumerable.Range(from, to - from + 1).Select(x => (char) x));
         }
 
         public static bool ListsAreEquivalent<T>(IReadOnlyList<T> list1, IReadOnlyList<T> list2, bool sort = true)

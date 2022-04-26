@@ -23,25 +23,58 @@ namespace TauCode.Extensions.Tests
 
             _list = new List<string>
             {
-                "uno", // 0
-                "due", // 1
-                "tre", // 2
-                "due", // 3
-                "cinque", // 4
+                "zero", // 0
+                "uno", // 1
+                "due", // 2
+                "tre", // 3
+                "quattro", // 4
+                "cinque", // 5
             };
         }
 
-        #region Find Index for IList<T>
+        #region Find First Index
 
         [Test]
-        public void FindFirstIndexOf_IList_ValidInput_ReturnsExpectedResult()
+        public void FindFirstIndex_ByValue_ValidIListNoExplicitStartPosition_ReturnsExpectedResult()
         {
             // Arrange
             IList<string> list = _list;
 
             // Act
-            var dueIndex = list.FindFirstIndexOf("due");
-            var dieciIndex = list.FindFirstIndexOf("dieci");
+            var dueIndex = list.FindFirstIndex("due");
+            var dieciIndex = list.FindFirstIndex("dieci");
+
+            // Assert
+            Assert.That(dueIndex, Is.EqualTo(1));
+            Assert.That(dieciIndex, Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void FindFirstIndex_ByValue_NullCollection_ThrowsArgumentNullException()
+        {
+            // Arrange
+            IList<string> list = null;
+
+            // Act
+            var ex = Assert.Throws<ArgumentNullException>(() => list.FindFirstIndex("some"));
+
+            // Assert
+            Assert.That(ex.ParamName, Is.EqualTo("collection"));
+        }
+
+        #endregion
+
+        #region todo Find Index for IList<T>
+
+        [Test]
+        public void FindFirstIndex_IList_ValidInput_ReturnsExpectedResult()
+        {
+            // Arrange
+            IList<string> list = _list;
+
+            // Act
+            var dueIndex = list.FindFirstIndex("due");
+            var dieciIndex = list.FindFirstIndex("dieci");
 
 
             // Assert
@@ -50,14 +83,50 @@ namespace TauCode.Extensions.Tests
         }
 
         [Test]
-        public void FindLastIndexOf_IList_ValidInput_ReturnsExpectedResult()
+        public void FindLastIndex_IList_ValidInput_ReturnsExpectedResult()
         {
             // Arrange
             IList<string> list = _list;
 
             // Act
-            var dueIndex = list.FindLastIndexOf("due");
-            var dieciIndex = list.FindLastIndexOf("dieci");
+            var dueIndex = list.FindLastIndex("due");
+            var dieciIndex = list.FindLastIndex("dieci");
+
+
+            // Assert
+            Assert.That(dueIndex, Is.EqualTo(3));
+            Assert.That(dieciIndex, Is.EqualTo(-1));
+        }
+
+        #endregion
+
+        #region todo Find Index for IReadOnlyList<T>
+
+        [Test]
+        public void FindFirstIndex_IReadOnlyList_ValidInput_ReturnsExpectedResult()
+        {
+            // Arrange
+            IReadOnlyList<string> list = _list;
+
+            // Act
+            var dueIndex = list.FindFirstIndex("due");
+            var dieciIndex = list.FindFirstIndex("dieci");
+
+
+            // Assert
+            Assert.That(dueIndex, Is.EqualTo(1));
+            Assert.That(dieciIndex, Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void FindLastIndex_IReadOnlyList_ValidInput_ReturnsExpectedResult()
+        {
+            // Arrange
+            IReadOnlyList<string> list = _list;
+
+            // Act
+            var dueIndex = list.FindLastIndex("due");
+            var dieciIndex = list.FindLastIndex("dieci");
 
 
             // Assert
@@ -68,48 +137,10 @@ namespace TauCode.Extensions.Tests
 
         #endregion
 
-        #region #region Find Index for IReadOnlyList<T>
-
-
-        [Test]
-        public void FindFirstIndexOf_IReadOnlyList_ValidInput_ReturnsExpectedResult()
-        {
-            // Arrange
-            IReadOnlyList<string> list = _list;
-
-            // Act
-            var dueIndex = list.FindFirstIndexOf("due");
-            var dieciIndex = list.FindFirstIndexOf("dieci");
-
-
-            // Assert
-            Assert.That(dueIndex, Is.EqualTo(1));
-            Assert.That(dieciIndex, Is.EqualTo(-1));
-        }
+        #region todo Find Index for List<T>
 
         [Test]
-        public void FindLastIndexOf_IReadOnlyList_ValidInput_ReturnsExpectedResult()
-        {
-            // Arrange
-            IReadOnlyList<string> list = _list;
-
-            // Act
-            var dueIndex = list.FindLastIndexOf("due");
-            var dieciIndex = list.FindLastIndexOf("dieci");
-
-
-            // Assert
-            Assert.That(dueIndex, Is.EqualTo(3));
-            Assert.That(dieciIndex, Is.EqualTo(-1));
-        }
-
-
-        #endregion
-
-        #region Find Index for List<T>
-
-        [Test]
-        public void FindFirstIndexOf_List_ValidInput_ReturnsExpectedResult()
+        public void FindFirstIndex_List_ValidInput_ReturnsExpectedResult()
         {
             // Arrange
             List<string> list = _list;
@@ -118,8 +149,8 @@ namespace TauCode.Extensions.Tests
             IReadOnlyList<string> listAsReadOnlyIList = list;
 
             // Act
-            var dueIndex = listAsIList.FindFirstIndexOf("due");
-            var dieciIndex = listAsReadOnlyIList.FindFirstIndexOf("dieci");
+            var dueIndex = listAsIList.FindFirstIndex("due");
+            var dieciIndex = listAsReadOnlyIList.FindFirstIndex("dieci");
 
 
             // Assert
@@ -128,7 +159,7 @@ namespace TauCode.Extensions.Tests
         }
 
         [Test]
-        public void FindLastIndexOf_List_ValidInput_ReturnsExpectedResult()
+        public void FindLastIndex_List_ValidInput_ReturnsExpectedResult()
         {
             // Arrange
             List<string> list = _list;
@@ -137,8 +168,8 @@ namespace TauCode.Extensions.Tests
             IReadOnlyList<string> listAsReadOnlyIList = list;
 
             // Act
-            var dueIndex = listAsReadOnlyIList.FindLastIndexOf("due");
-            var dieciIndex = listAsIList.FindLastIndexOf("dieci");
+            var dueIndex = listAsReadOnlyIList.FindLastIndex("due");
+            var dieciIndex = listAsIList.FindLastIndex("dieci");
 
             // Assert
             Assert.That(dueIndex, Is.EqualTo(3));
