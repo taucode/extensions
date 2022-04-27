@@ -95,18 +95,35 @@ namespace TauCode.Extensions
                 resourceName = assembly.FindFullResourceName(resourceName);
             }
 
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using var stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream == null)
             {
-                if (stream == null)
+                throw new FileNotFoundException("Embedded resource not found.");
+            }
+
+            var buffer = new byte[stream.Length];
+
+            var currentOffset = 0;
+            int bytesRemaining;
+
+            checked
+            {
+                bytesRemaining = (int)stream.Length;
+            }
+
+            while (true)
+            {
+                var bytesRead = stream.Read(buffer, currentOffset, bytesRemaining);
+                if (bytesRead == 0)
                 {
-                    throw new FileNotFoundException("Embedded resource not found.");
+                    break;
                 }
 
-                var content = new byte[stream.Length];
-                stream.Read(content, 0, content.Length);
-
-                return content;
+                currentOffset += bytesRead;
+                bytesRemaining -= bytesRead;
             }
+
+            return buffer;
         }
 
         public static string GetResourceText(
@@ -153,17 +170,6 @@ namespace TauCode.Extensions
             var xml = GetResourceText(assembly, resourceName);
             doc.LoadXml(xml);
             return doc;
-        }
-
-        public static string SaveResourceToTempFile(
-            this Assembly assembly,
-            string resourceName,
-            bool findFullName = false)
-        {
-            var tempFilePath = FileTools.CreateTempFilePath();
-            var content = assembly.GetResourceBytes(resourceName, findFullName);
-            File.WriteAllBytes(tempFilePath, content);
-            return tempFilePath;
         }
     }
 }

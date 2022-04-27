@@ -68,7 +68,6 @@ namespace TauCode.Extensions
             return Guid.Parse(s);
         }
 
-        // todo ut this
         public static DateTimeOffset ToUtcDateOffset(this string timeString)
         {
             if (timeString == null)
