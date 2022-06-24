@@ -4,7 +4,6 @@ using System.Xml;
 
 namespace TauCode.Extensions
 {
-// todo move to TauCode.Xml package
     public static class XmlExtensions
     {
         public static string ToXmlString(this XmlDocument document)
