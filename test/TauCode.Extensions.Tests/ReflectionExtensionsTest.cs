@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using System;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 
 namespace TauCode.Extensions.Tests
 {
@@ -99,12 +96,12 @@ namespace TauCode.Extensions.Tests
         public void SetFieldValue_InstanceIsNull_ThrowsArgumentNullException()
         {
             // Arrange
-            Foo foo = null;
+            Foo? foo = null;
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentNullException>(() => foo.SetFieldValue("_publicField", 1599));
+            var ex = Assert.Throws<ArgumentNullException>(() => foo!.SetFieldValue("_publicField", 1599));
 
-            Assert.That(ex.ParamName, Is.EqualTo("instance"));
+            Assert.That(ex!.ParamName, Is.EqualTo("instance"));
         }
 
         [Test]
@@ -146,12 +143,12 @@ namespace TauCode.Extensions.Tests
         public void GetFieldValue_InstanceIsNull_ThrowsArgumentNullException()
         {
             // Arrange
-            Foo foo = null;
+            Foo foo = null!;
 
             // Act & Assert
             var ex = Assert.Throws<ArgumentNullException>(() => foo.GetFieldValue("_publicField"));
 
-            Assert.That(ex.ParamName, Is.EqualTo("instance"));
+            Assert.That(ex!.ParamName, Is.EqualTo("instance"));
         }
 
         [Test]
@@ -259,7 +256,7 @@ namespace TauCode.Extensions.Tests
             // Assert
             CollectionAssert.AreEquivalent(
                 lines,
-                new []
+                new[]
                 {
                     "Сделал три подхода",
                     "Четвёртый за Гарри",

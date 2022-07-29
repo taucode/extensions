@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
 using System.Xml;
 
@@ -34,7 +31,7 @@ namespace TauCode.Extensions
                 throw new InvalidOperationException($"Field not found: '{fieldName}'.");
             }
 
-            return field.GetValue(instance);
+            return field.GetValue(instance)!;
         }
 
         public static void SetFieldValue(this object instance, string fieldName, object newValue)

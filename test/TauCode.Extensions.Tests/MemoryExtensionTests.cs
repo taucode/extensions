@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using System.Text;
 
 namespace TauCode.Extensions.Tests
 {
     public class SplitTestCase
     {
         public int Index;
-        public string Input;
-        public List<string> Parts;
+        public string? Input;
+        public List<string>? Parts;
 
         public override string ToString()
         {
@@ -37,7 +32,7 @@ namespace TauCode.Extensions.Tests
             var ex = Assert.Throws<ArgumentException>(() => "c:/temp/file.txt".AsSpan().Split()); // no separators
 
             // Assert
-            Assert.That(ex.Message, Does.StartWith("'separators' cannot be empty."));
+            Assert.That(ex!.Message, Does.StartWith("'separators' cannot be empty."));
             Assert.That(ex.ParamName, Is.EqualTo("separators"));
         }
 
@@ -51,7 +46,7 @@ namespace TauCode.Extensions.Tests
             var parts = input.Split('/', '\\');
 
             // Assert
-            Assert.That(parts, Has.Count.EqualTo(testCase.Parts.Count));
+            Assert.That(parts, Has.Count.EqualTo(testCase.Parts!.Count));
 
             for (var i = 0; i < parts.Count; i++)
             {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace TauCode.Extensions
+﻿namespace TauCode.Extensions
 {
     public static class CollectionExtensions
     {
@@ -178,8 +174,9 @@ namespace TauCode.Extensions
 
         #endregion
 
-        public static TValue GetDictionaryValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
-            TKey key)
+        public static TValue GetDictionaryValueOrDefault<TKey, TValue>(
+            this IDictionary<TKey, TValue> dictionary,
+            TKey key) where TKey : notnull
         {
             if (dictionary == null)
             {
@@ -188,7 +185,7 @@ namespace TauCode.Extensions
 
             if (dictionary is Dictionary<TKey, TValue> dictionaryImplementation)
             {
-                return dictionaryImplementation.GetValueOrDefault(key);
+                return dictionaryImplementation.GetValueOrDefault(key)!;
             }
 
             throw new ArgumentException($"'{nameof(dictionary)}' is not a 'Dictionary<TKey, TValue>'.",
@@ -208,7 +205,7 @@ namespace TauCode.Extensions
                     $"'{nameof(to)}' must be not less than '{nameof(from)}'.");
             }
 
-            list.AddRange(Enumerable.Range(from, to - from + 1).Select(x => (char) x));
+            list.AddRange(Enumerable.Range(from, to - from + 1).Select(x => (char)x));
         }
 
         public static bool ListsAreEquivalent<T>(IReadOnlyList<T> list1, IReadOnlyList<T> list2, bool sort = true)
