@@ -1,8 +1,4 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using TauCode.Extensions.Tests.Collections;
+﻿using TauCode.Extensions.Tests.Collections;
 
 namespace TauCode.Extensions.Tests;
 
@@ -83,10 +79,10 @@ public class CollectionExtensionsTests
     public void FindFirstIndex_ByValue_CollectionIsNull_ThrowsArgumentNullException()
     {
         // Arrange
-        IList<string> list = null;
+        IList<string>? list = null;
 
         // Act
-        var ex = Assert.Throws<ArgumentNullException>(() => list.FindFirstIndex("some"));
+        var ex = Assert.Throws<ArgumentNullException>(() => list!.FindFirstIndex("some"));
 
         // Assert
         Assert.That(ex.ParamName, Is.EqualTo("collection"));
@@ -189,10 +185,10 @@ public class CollectionExtensionsTests
     public void FindLastIndex_ByValue_CollectionIsNull_ThrowsArgumentNullException()
     {
         // Arrange
-        IList<string> list = null;
+        IList<string>? list = null;
 
         // Act
-        var ex = Assert.Throws<ArgumentNullException>(() => list.FindLastIndex("some"));
+        var ex = Assert.Throws<ArgumentNullException>(() => list!.FindLastIndex("some"));
 
         // Assert
         Assert.That(ex.ParamName, Is.EqualTo("collection"));
@@ -284,13 +280,13 @@ public class CollectionExtensionsTests
     public void AddCharRange_ListIsNull_ThrowsArgumentNullException()
     {
         // Arrange
-        List<char> list = null;
+        List<char>? list = null;
 
         // Act
-        var ex = Assert.Throws<ArgumentNullException>(() => list.AddCharRange('a', 'z'));
+        var ex = Assert.Throws<ArgumentNullException>(() => list!.AddCharRange('a', 'z'));
 
         // Assert
-        Assert.That(ex.ParamName, Is.EqualTo("list"));
+        Assert.That(ex!.ParamName, Is.EqualTo("list"));
     }
 
     [Test]
