@@ -4,7 +4,7 @@
     {
         public static bool IsLatinLetter(this char c)
         {
-            return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+            return c is >= 'a' and <= 'z' or >= 'A' and <= 'Z';
         }
     }
 }
