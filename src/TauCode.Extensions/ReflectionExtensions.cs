@@ -2,171 +2,168 @@
 using System.Text;
 using System.Xml;
 
-namespace TauCode.Extensions
+namespace TauCode.Extensions;
+
+public static class ReflectionExtensions
 {
-    public static class ReflectionExtensions
+    public static object GetFieldValue(this object instance, string fieldName)
     {
-        public static object GetFieldValue(this object instance, string fieldName)
+        if (instance == null)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException(nameof(instance));
-            }
-
-            if (string.IsNullOrWhiteSpace(fieldName))
-            {
-                throw new ArgumentException("Invalid field name.", nameof(fieldName));
-            }
-
-            var bindFlags =
-                BindingFlags.Instance |
-                BindingFlags.Public |
-                BindingFlags.NonPublic |
-                BindingFlags.Static;
-
-            var field = instance.GetType().GetField(fieldName, bindFlags);
-
-            if (field == null)
-            {
-                throw new InvalidOperationException($"Field not found: '{fieldName}'.");
-            }
-
-            return field.GetValue(instance)!;
+            throw new ArgumentNullException(nameof(instance));
         }
 
-        public static void SetFieldValue(this object instance, string fieldName, object newValue)
+        if (string.IsNullOrWhiteSpace(fieldName))
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException(nameof(instance));
-            }
-
-            if (string.IsNullOrWhiteSpace(fieldName))
-            {
-                throw new ArgumentException("Invalid field name.", nameof(fieldName));
-            }
-
-            var bindFlags =
-                BindingFlags.Instance |
-                BindingFlags.Public |
-                BindingFlags.NonPublic |
-                BindingFlags.Static;
-
-            var field = instance.GetType().GetField(fieldName, bindFlags);
-
-            if (field == null)
-            {
-                throw new InvalidOperationException($"Field not found: '{fieldName}'.");
-            }
-
-            field.SetValue(instance, newValue);
+            throw new ArgumentException("Invalid field name.", nameof(fieldName));
         }
 
-        public static string FindFullResourceName(this Assembly assembly, string localResourceName)
+        var bindFlags =
+            BindingFlags.Instance |
+            BindingFlags.Public |
+            BindingFlags.NonPublic |
+            BindingFlags.Static;
+
+        var field = instance.GetType().GetField(fieldName, bindFlags);
+
+        if (field == null)
         {
-            var matches = assembly
-                .GetManifestResourceNames()
-                .Where(x => x.EndsWith(localResourceName, StringComparison.InvariantCulture))
-                .ToList();
-
-            if (matches.Count == 0)
-            {
-                throw new FileNotFoundException($"Resource not found: '{localResourceName}'.");
-            }
-
-            if (matches.Count > 1)
-            {
-                throw new InvalidOperationException($"More than one resource found: '{localResourceName}'.");
-            }
-
-            return matches.Single();
+            throw new InvalidOperationException($"Field not found: '{fieldName}'.");
         }
 
-        public static byte[] GetResourceBytes(
-            this Assembly assembly,
-            string resourceName,
-            bool findFullName = false)
+        return field.GetValue(instance)!;
+    }
+
+    public static void SetFieldValue(this object instance, string fieldName, object newValue)
+    {
+        if (instance == null)
         {
-            if (findFullName)
-            {
-                resourceName = assembly.FindFullResourceName(resourceName);
-            }
-
-            using var stream = assembly.GetManifestResourceStream(resourceName);
-            if (stream == null)
-            {
-                throw new FileNotFoundException("Embedded resource not found.");
-            }
-
-            var buffer = new byte[stream.Length];
-
-            var currentOffset = 0;
-            int bytesRemaining;
-
-            checked
-            {
-                bytesRemaining = (int)stream.Length;
-            }
-
-            while (true)
-            {
-                var bytesRead = stream.Read(buffer, currentOffset, bytesRemaining);
-                if (bytesRead == 0)
-                {
-                    break;
-                }
-
-                currentOffset += bytesRead;
-                bytesRemaining -= bytesRead;
-            }
-
-            return buffer;
+            throw new ArgumentNullException(nameof(instance));
         }
 
-        public static string GetResourceText(
-            this Assembly assembly,
-            string resourceName,
-            bool findFullName = false)
+        if (string.IsNullOrWhiteSpace(fieldName))
         {
-            var bytes = assembly.GetResourceBytes(resourceName, findFullName);
-
-            using (var stream = new MemoryStream(bytes))
-            using (var reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                var text = reader.ReadToEnd();
-                return text;
-            }
+            throw new ArgumentException("Invalid field name.", nameof(fieldName));
         }
 
-        public static string[] GetResourceLines(
-            this Assembly assembly,
-            string resourceName,
-            bool findFullName = false)
-        {
-            if (findFullName)
-            {
-                resourceName = assembly.FindFullResourceName(resourceName);
-            }
+        var bindFlags =
+            BindingFlags.Instance |
+            BindingFlags.Public |
+            BindingFlags.NonPublic |
+            BindingFlags.Static;
 
-            var txt = assembly.GetResourceText(resourceName);
-            var lines = txt.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            return lines;
+        var field = instance.GetType().GetField(fieldName, bindFlags);
+
+        if (field == null)
+        {
+            throw new InvalidOperationException($"Field not found: '{fieldName}'.");
         }
 
-        public static XmlDocument GetResourceXml(
-            this Assembly assembly,
-            string resourceName,
-            bool findFullName = false)
+        field.SetValue(instance, newValue);
+    }
+
+    public static string FindFullResourceName(this Assembly assembly, string localResourceName)
+    {
+        var matches = assembly
+            .GetManifestResourceNames()
+            .Where(x => x.EndsWith(localResourceName, StringComparison.InvariantCulture))
+            .ToList();
+
+        if (matches.Count == 0)
         {
-            if (findFullName)
+            throw new FileNotFoundException($"Resource not found: '{localResourceName}'.");
+        }
+
+        if (matches.Count > 1)
+        {
+            throw new InvalidOperationException($"More than one resource found: '{localResourceName}'.");
+        }
+
+        return matches.Single();
+    }
+
+    public static byte[] GetResourceBytes(
+        this Assembly assembly,
+        string resourceName,
+        bool findFullName = false)
+    {
+        if (findFullName)
+        {
+            resourceName = assembly.FindFullResourceName(resourceName);
+        }
+
+        using var stream = assembly.GetManifestResourceStream(resourceName);
+        if (stream == null)
+        {
+            throw new FileNotFoundException("Embedded resource not found.");
+        }
+
+        var buffer = new byte[stream.Length];
+
+        var currentOffset = 0;
+        int bytesRemaining;
+
+        checked
+        {
+            bytesRemaining = (int)stream.Length;
+        }
+
+        while (true)
+        {
+            var bytesRead = stream.Read(buffer, currentOffset, bytesRemaining);
+            if (bytesRead == 0)
             {
-                resourceName = assembly.FindFullResourceName(resourceName);
+                break;
             }
 
-            var doc = new XmlDocument();
-            var xml = GetResourceText(assembly, resourceName);
-            doc.LoadXml(xml);
-            return doc;
+            currentOffset += bytesRead;
+            bytesRemaining -= bytesRead;
         }
+
+        return buffer;
+    }
+
+    public static string GetResourceText(
+        this Assembly assembly,
+        string resourceName,
+        bool findFullName = false)
+    {
+        var bytes = assembly.GetResourceBytes(resourceName, findFullName);
+
+        using var stream = new MemoryStream(bytes);
+        using var reader = new StreamReader(stream, Encoding.UTF8);
+        var text = reader.ReadToEnd();
+        return text;
+    }
+
+    public static string[] GetResourceLines(
+        this Assembly assembly,
+        string resourceName,
+        bool findFullName = false)
+    {
+        if (findFullName)
+        {
+            resourceName = assembly.FindFullResourceName(resourceName);
+        }
+
+        var txt = assembly.GetResourceText(resourceName);
+        var lines = txt.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+        return lines;
+    }
+
+    public static XmlDocument GetResourceXml(
+        this Assembly assembly,
+        string resourceName,
+        bool findFullName = false)
+    {
+        if (findFullName)
+        {
+            resourceName = assembly.FindFullResourceName(resourceName);
+        }
+
+        var doc = new XmlDocument();
+        var xml = GetResourceText(assembly, resourceName);
+        doc.LoadXml(xml);
+        return doc;
     }
 }

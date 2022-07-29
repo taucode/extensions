@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-
-namespace TauCode.Extensions.Tests
+﻿namespace TauCode.Extensions.Tests
 {
     [TestFixture]
     public class StringExtensionsTest
