@@ -31,3 +31,8 @@
 ==========
     1. Starting 1.7.0 initiative
     2. Updating pipeline YAMLs
+
+2023-04-06
+==========
+    1. Started 1.8.0 initiative
+    2. Added CollectionExtensions.AddMany method
