@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using NUnit.Framework.Legacy;
+using System.Text;
 
 namespace TauCode.Extensions.Tests;
 
@@ -254,14 +255,14 @@ public class ReflectionExtensionsTest
         var lines = this.GetType().Assembly.GetResourceLines("My.Utf8.Text.File.txt", true);
 
         // Assert
-        CollectionAssert.AreEquivalent(
+        Assert.That(
             lines,
-            new[]
+            Is.EquivalentTo(new[]
             {
                 "Сделал три подхода",
                 "Четвёртый за Гарри",
                 "Гарри щас в походе вернётся едва ли /*2",
-            });
+            }));
     }
 
     #endregion
